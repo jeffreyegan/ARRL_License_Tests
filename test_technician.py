@@ -1,5 +1,8 @@
 import sqlite3
 import random
+import re
+from matplotlib import pyplot as plt
+from matplotlib import image as mpimg
 
 db_file = "arrl_test_questions.db"
 conn = sqlite3.connect(db_file)
@@ -30,11 +33,21 @@ for q in questions:
     print("    [2] "+q[4])
     print("    [3] "+q[5])
     print("    [4] "+q[6])
+    m = re.search(r'component (.*) in figure T(.*)', q[1])
+    if m:
+        plt.figure(figsize=(614/75.0, 458/75.0))  # true fig size is 614 x 458 pixels
+        img = mpimg.imread('Fig_T'+m[2][0]+'.png')
+        plt.imshow(img)
+        print("... Close figure when ready to answer...")
+        plt.show()
+        del m
+
     user_ans = input("\n  Enter multiple choice answer [1-4]")
     while not user_ans in answer_set:
         user_ans = input("  Invalid answer, enter multiple choice answer [1-4]")
     if answer_map[user_ans] == q[2]:
         num_correct += 1.0
+        # print("  correct!\n")
 
 print("You scored: "+str(round(100.0*num_correct/len(questions)))+"%")
 print("You answered "+str(int(num_correct))+" questions correctly.")

@@ -1,2 +1,2 @@
-# AARL_License_Tests
-Test preparation tool for aquiring your American Radio Relay League (AARL) HAM Radio Licenses
+# ARRL_License_Tests
+Test preparation tool for aquiring your American Radio Relay League (ARRL) HAM Radio Licenses
